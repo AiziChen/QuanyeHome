@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>关于Quanye</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='global.css') }}">
+</head>
+
+<body>
+    <div class="navigation">
+        导航：
+        <a href="{{ url_for('home') }}">主页</a>|
+        <a href="{{ url_for('tools') }}">工具</a>|
+        <a href="{{ url_for('about') }}">关于</a>
+    </div>
+    <h2>=关于Quanye=</h2>
+    <p>
+        Quanye是权业的拼音缩写，他的同学和朋友们都亲切地称他为`权业`，业余时喜好研究`Computer Science`等让他感兴趣的东西。
+        <br>
+        eg. Programming、化学、生理学
+    </p>
+</body>
+
+</html>

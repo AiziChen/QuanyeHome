@@ -1,0 +1,17 @@
+body {
+    margin: 20px;
+}
+
+.navigation {
+    border: 1px solid saddlebrown;
+    padding: 20px;
+    font-size: 1.3em;
+}
+
+.navigation>a {
+    color: green;
+}
+
+.navigation>a:hover {
+    color: salmon;
+}

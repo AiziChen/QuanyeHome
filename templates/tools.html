@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quanye的工具</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='global.css') }}">
+</head>
+
+<body>
+    <div class="navigation">
+        导航：
+        <a href="{{ url_for('home') }}">主页</a>|
+        <a href="{{ url_for('tools') }}">工具</a>|
+        <a href="{{ url_for('about') }}">关于</a>
+    </div>
+    <h2>=这里是Quanye的所有工具=</h2>
+    <ul>
+        <li> <a href="{{ url_for('signin') }}">新绿色药业每日定时签到</a></li>
+    </ul>
+</body>
+
+</html>

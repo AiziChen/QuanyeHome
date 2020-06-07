@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>新绿色药业每日自动签到工具</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='global.css') }}">
+    <style>
+        form>input {
+            background-color: white;
+            color: black;
+            font-size: 1em;
+            padding: 6px;
+            border-radius: 4px;
+            margin: 4px;
+        }
+
+        form>select {
+            font-size: 1em;
+        }
+
+        form>input[type=submit] {
+            color: red;
+            width: 100px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="navigation">
+        导航：
+        <a href="{{ url_for('home') }}">主页</a>|
+        <a href="{{ url_for('tools') }}">工具</a>|
+        <a href="{{ url_for('about') }}">关于</a>
+        &spar;
+        签到
+    </div>
+    <h3>新绿色药业每日自动签到工具</h3>
+    <form action="/">
+        <input id="user" type="text" placeholder="用户名">
+        <br>
+        <input id="password" type="password" placeholder="密码">
+        <br>
+        <input id="email" type="email" placeholder="通知邮件">
+        <br>
+        <select name="area" id="area">
+            <option value="no-value">选择定位点</option>
+            <option value="ylwsk">1. 御龙湾社康</option>
+        </select>
+        <br>
+        <input id="addSigner" type="submit" value="添加">
+    </form>
+    <script src="{{ url_for('static', filename='axios.min.js')}}"></script>
+    <script>
+        function get_real_area(area) {
+            if (area.startsWith("ylwsk")) {
+                return "latitudeLongitude=22.571694999999995,113.853659" +
+                    "&address=广东省深圳市宝安区金海路3008靠近海港小学" +
+                    "&remark=&attachmentIds=";
+            } else {
+                return "latitudeLongitude=22.571694999999995,113.853659" +
+                    "&address=广东省深圳市宝安区金海路3008靠近海港小学" +
+                    "&remark=&attachmentIds=";
+            }
+        }
+        const btnLogin = document.querySelector("#addSigner");
+        const fUser = document.querySelector("#user");
+        const fPass = document.querySelector("#password");
+        const fArea = document.querySelector("#area");
+        const fEmail = document.querySelector("#email");
+        btnLogin.addEventListener("click", evt => {
+            evt.preventDefault();
+            const fc = fUser.value;
+            const fp = fPass.value;
+            let fa = fArea.value;
+            const fe = fEmail.value;
+            if (fc.trim() == "") {
+                alert("用户名未填写");
+            } else if (fp.trim() == "") {
+                alert("密码未填写");
+            } else if (fa == "no-value") {
+                alert("每日定位点未选择");
+            } else if (fe.trim() == "") {
+                alert("请填写邮箱");
+            } else {
+                fa = get_real_area(fa);
+                axios.post("/tools/service/addSigner", {
+                    user: fc,
+                    password: fp,
+                    email: fe,
+                    area: fa
+                }).then(resp => {
+                    alert(resp.data);
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>

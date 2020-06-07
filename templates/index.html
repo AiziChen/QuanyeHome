@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quanye的主页</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='global.css') }}">
+</head>
+
+<body>
+    <div class="navigation">
+        导航：
+        <a href="{{ url_for('home') }}">主页</a>|
+        <a href="{{ url_for('tools') }}">工具</a>|
+        <a href="{{ url_for('about') }}">关于</a>
+    </div>
+    <h2>=欢迎访问Quanye的主页=</h2>
+    <p>要使用签到功能，请转到工具页</p>
+</body>
+
+</html>
