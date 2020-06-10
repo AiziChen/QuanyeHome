@@ -34,9 +34,9 @@ conn.commit()
 def timer():
     with app.app_context():
         while True:
-            time.sleep(1)
+            time.sleep(0.8)
             t = time.localtime(time.time())
-            if (t.tm_hour == 12 and t.tm_min == 3 and t.tm_sec == 0):
+            if (t.tm_hour == 12 and t.tm_min == 6 and t.tm_sec == 11):
                 conn = get_db()
                 cur = conn.execute("SELECT * FROM user")
                 for user in cur.fetchall():
@@ -47,12 +47,14 @@ def timer():
                     # 执行签到
                     rs = service.do_signin(u, password, area)
                     # 发送邮件
+                    now = time.strftime("%Y-%m-%d,%H:%M", time.localtime())
+                    day = str(t.tm_mon) + "月" + str(t.tm_mday) + "日"
                     if rs == True:
                         sendemail.send_email(
-                            "新绿色药业自动签到成功提示", "您的帐号`" + u + "`签到成功", email)
+                            day + "签到成功提示", "您的帐号`" + u + "`在" + now + "签到成功", email)
                     else:
                         sendemail.send_email(
-                            "新绿色药业自动签到失败提示", "您的帐号`" + u + "`签到失败，请登录APP客户端手动签到", email)
+                            day + "自动签到失败提示", "您的帐号`" + u + "`签到失败，请登录APP客户端手动签到", email)
 
 
 tt = Thread(target=timer)
@@ -110,6 +112,6 @@ def addSigner():
         cur.execute(
             "insert into user(user, password, email, area) values (?, ?, ?, ?)", (user, password, email, area))
         conn.commit()
-        return "ok"
+        return "添加成功"
     except sqlite3.IntegrityError:
         return "该用户名已经添加过了，不需要重新添加"

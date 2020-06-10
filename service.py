@@ -10,7 +10,7 @@ def create_signin(sessionkey, data, cookies):
         BASE_URL + "/client.do?method=postjson&module=17&scope=16" +
         "&operation=create&sessionkey=" + sessionkey, params=data, cookies=cookies)
     c = resp.content.decode("utf-8")
-    # print(c)
+    print(c)
     if c.find("error") < 0:
         return True
     else:
@@ -35,18 +35,18 @@ def login(user, password):
                 key = v[v.index("=") + 1: v.index(";")]
                 return (key, resp.cookies)
     else:
-        return False
+        return (False, "error")
 
 
 def do_signin(user, password, data):
     key, cookies = login(user, password)
-    if key == False or key == None:
+    if key == False:
         return False
     else:
         return create_signin(key, data, cookies)
 
 
-# rs = do_signin("chenqy", "7102110115quan", "latitudeLongitude=22.571694999999995,113.853659" +
+# rs = do_signin("chenqy", "", "latitudeLongitude=22.571694999999995,113.853659" +
 #                "&address=广东省深圳市宝安区金海路3008靠近海港小学" +
 #                "&remark=&attachmentIds=")
 # print(rs)
