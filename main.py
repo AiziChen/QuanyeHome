@@ -12,6 +12,7 @@ app = Flask(__name__)
 ctx = app.app_context()
 
 DATABASE = './database.db'
+state = 0
 
 
 def get_db():
@@ -33,10 +34,13 @@ conn.commit()
 
 def timer():
     with app.app_context():
+        global state
+        state = state + 1
+        print(state)
         while True:
             time.sleep(0.8)
             t = time.localtime(time.time())
-            if (t.tm_hour == 12 and t.tm_min == 6 and t.tm_sec == 11):
+            if (t.tm_hour == 12 and t.tm_min == 6 and t.tm_sec == 11 and state == 1):
                 conn = get_db()
                 cur = conn.execute("SELECT * FROM user")
                 for user in cur.fetchall():
@@ -55,6 +59,7 @@ def timer():
                     else:
                         sendemail.send_email(
                             day + "自动签到失败提示", "您的帐号`" + u + "`签到失败，请登录APP客户端手动签到", email)
+                time.sleep(60)
 
 
 tt = Thread(target=timer)
