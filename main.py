@@ -34,13 +34,10 @@ conn.commit()
 
 def timer():
     with app.app_context():
-        global state
-        state = state + 1
-        print(state)
         while True:
             time.sleep(0.8)
             t = time.localtime(time.time())
-            if (t.tm_hour == 12 and t.tm_min == 6 and t.tm_sec == 11 and state == 1):
+            if (t.tm_hour == 12 and t.tm_min == 6 and t.tm_sec == 11):
                 conn = get_db()
                 cur = conn.execute("SELECT * FROM user")
                 for user in cur.fetchall():
@@ -62,8 +59,10 @@ def timer():
                 time.sleep(60)
 
 
-tt = Thread(target=timer)
-tt.start()
+state = state + 1
+if (state == 1):
+    tt = Thread(target=timer)
+    tt.start()
 ctx.pop()
 
 
