@@ -12,7 +12,6 @@ app = Flask(__name__)
 ctx = app.app_context()
 
 DATABASE = './database.db'
-state = 0
 
 
 def get_db():
@@ -59,10 +58,9 @@ def timer():
                 time.sleep(60)
 
 
-state = state + 1
-if (state == 1):
-    tt = Thread(target=timer)
-    tt.start()
+# start timer in new thread
+tt = Thread(target=timer)
+tt.start()
 ctx.pop()
 
 
