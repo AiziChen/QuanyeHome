@@ -109,11 +109,25 @@ def addSigner():
     area = json_data.get("area")
 
     conn = get_db()
-    cur = conn.cursor()
-    try:
-        cur.execute(
-            "insert into user(user, password, email, area) values (?, ?, ?, ?)", (user, password, email, area))
-        conn.commit()
-        return "添加成功"
-    except sqlite3.IntegrityError:
-        return "该用户名已经添加过了，不需要重新添加"
+    cur = conn.execute("SELECT * FROM user WHERE user = ?", [user])
+    total = cur.fetchall()
+    print(len(total), total[0][2])
+    if (len(total) >= 1):
+        if (total[0][2] == password):
+            try:
+                conn.execute(
+                    "UPDATE user SET password = ?, email = ?, area = ?", [password, email, area])
+                conn.commit()
+                return "修改成功"
+            except sqlite3.Error:
+                return "修改时出现未知问题，添加失败，请联系Quanye排查"
+        else:
+            return "用户名密码不正确，无法修改"
+    else:
+        try:
+            conn.execute(
+                "INSERT INTO user(user, password, email, area) VALUES (?, ?, ?, ?)", (user, password, email, area))
+            conn.commit()
+            return "添加成功"
+        except sqlite3.Error:
+            return "添加时出现出现未知问题，添加失败，请联系Quanye排查"

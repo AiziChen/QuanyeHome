@@ -54,7 +54,7 @@
             <option value="kxsk">4. 凯旋社康</option>
         </select>
         <br>
-        <input id="addSigner" type="submit" value="添加">
+        <input id="addSigner" type="submit" value="添加/修改">
     </form>
     <script src="{{ url_for('static', filename='axios.min.js')}}"></script>
     <script>
@@ -91,7 +91,7 @@
             evt.preventDefault();
             const fc = fUser.value;
             const fp = fPass.value;
-            const fa = fArea.value;
+            let fa = fArea.value;
             const fe = fEmail.value;
             const fr = fRemark.value;
             if (fc.trim() == "") {
