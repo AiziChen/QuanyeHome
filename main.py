@@ -111,7 +111,6 @@ def addSigner():
     conn = get_db()
     cur = conn.execute("SELECT * FROM user WHERE user = ?", [user])
     total = cur.fetchall()
-    print(len(total), total[0][2])
     if (len(total) >= 1):
         if (total[0][2] == password):
             try:
