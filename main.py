@@ -36,7 +36,7 @@ def timer():
         while True:
             time.sleep(0.8)
             t = time.localtime(time.time())
-            if (t.tm_hour == 12 and t.tm_min == 6 and t.tm_sec == 11):
+            if (t.tm_hour == 23 and t.tm_min == 5 and t.tm_sec == 11):
                 conn = get_db()
                 cur = conn.execute("SELECT * FROM user")
                 for user in cur.fetchall():
@@ -46,6 +46,7 @@ def timer():
                     area = user[4]
                     # 执行签到
                     rs = service.do_signin(u, password, area)
+
                     # 发送邮件
                     now = time.strftime("%Y-%m-%d,%H:%M", time.localtime())
                     day = str(t.tm_mon) + "月" + str(t.tm_mday) + "日"
@@ -55,7 +56,7 @@ def timer():
                     else:
                         sendemail.send_email(
                             day + "自动签到失败提示", "您的帐号`" + u + "`签到失败，请登录APP客户端手动签到", email)
-                time.sleep(60)
+                    time.sleep(10)
 
 
 # start timer in new thread
@@ -115,7 +116,7 @@ def addSigner():
         if (total[0][2] == password):
             try:
                 conn.execute(
-                    "UPDATE user SET password = ?, email = ?, area = ?", [password, email, area])
+                    "UPDATE user SET password = ?, email = ?, area = ? WHERE user = ?", [password, email, area, user])
                 conn.commit()
                 return "修改成功"
             except sqlite3.Error:

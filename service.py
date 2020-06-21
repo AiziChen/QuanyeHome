@@ -1,11 +1,13 @@
 import requests
 import json
 import time
+import urllib.parse
 
 BASE_URL = "http://oa.xinlvyao.com:89"
 
 
 def create_signin(sessionkey, data, cookies):
+    data = urllib.parse.quote_plus(data)
     resp = requests.post(
         BASE_URL + "/client.do?method=postjson&module=17&scope=16" +
         "&operation=create&sessionkey=" + sessionkey, params=data, cookies=cookies)
@@ -34,8 +36,7 @@ def login(user, password):
             if v.find("JSESSIONID") > 0:
                 key = v[v.index("=") + 1: v.index(";")]
                 return (key, resp.cookies)
-    else:
-        return (False, "error")
+    return (False, "error")
 
 
 def do_signin(user, password, data):
