@@ -61,24 +61,24 @@
         function get_real_area(area, remark) {
             if (area.startsWith("ylwsk")) {
                 return "latitudeLongitude=22.572765000000004,113.85347400000002" +
-                    "&address=广东省深圳市宝安区金海路98号靠近正中华丽中心" +
-                    "&remark=" + remark + "&attachmentIds="
+                    "&address=" + encodeURIComponent("广东省深圳市宝安区金海路98号靠近正中华丽中心") +
+                    "&remark=" + encodeURIComponent(remark) + "&attachmentIds="
             } else if (area.startsWith("hwsk")) {
                 return "latitudeLongitude=22.559311566265976,113.88966858386996" +
-                    "&address=宝安区中医院海旺社区健康服务中心,宝城84区风临洲C栋2楼" +
-                    "&remark=" + remark + "&attachmentIds="
+                    "&address=" + encodeURIComponent("宝安区中医院海旺社区健康服务中心,宝城84区风临洲C栋2楼") +
+                    "&remark=" + encodeURIComponent(remark) + "&attachmentIds="
             } else if (area.startsWith("scsk")) {
                 return "latitudeLongitude=22.578644232418984,113.8979981839657" +
-                    "&address=深圳市宝安中医院(集团)上川社区健康服务中心,宝安35区同昌路7号京久商务大厦2层" +
-                    "&remark=" + remark + "&attachmentIds="
+                    "&address=" + encodeURIComponent("深圳市宝安中医院(集团)上川社区健康服务中心,宝安35区同昌路7号京久商务大厦2层") +
+                    "&remark=" + encodeURIComponent(remark) + "&attachmentIds="
             } else if (area.startsWith("kxsk")) {
                 return "latitudeLongitude=22.549497445635144,113.89932453632356" +
-                    "&address=宝安区中医院凯旋社区健康服务中心,宝安大道金泓凯旋城一期4栋117号" +
-                    "&remark=" + remark + "&attachmentIds="
+                    "&address=" + encodeURIComponent("宝安区中医院凯旋社区健康服务中心,宝安大道金泓凯旋城一期4栋117号") +
+                    "&remark=" + encodeURIComponent(remark) + "&attachmentIds="
             } else {
                 return "latitudeLongitude=22.572765000000004,113.85347400000002" +
-                    "&address=广东省深圳市宝安区金海路98号靠近正中华丽中心" +
-                    "&remark=" + remark + "&attachmentIds="
+                    "&address=" + encodeURIComponent("广东省深圳市宝安区金海路98号靠近正中华丽中心") +
+                    "&remark=" + encodeURIComponent(remark) + "&attachmentIds="
             }
         }
         const btnLogin = document.querySelector("#addSigner");

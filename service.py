@@ -7,7 +7,6 @@ BASE_URL = "http://oa.xinlvyao.com:89"
 
 
 def create_signin(sessionkey, data, cookies):
-    data = urllib.parse.quote_plus(data)
     resp = requests.post(
         BASE_URL + "/client.do?method=postjson&module=17&scope=16" +
         "&operation=create&sessionkey=" + sessionkey, params=data, cookies=cookies)
