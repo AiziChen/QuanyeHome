@@ -36,7 +36,7 @@ def timer():
         while True:
             time.sleep(0.8)
             t = time.localtime(time.time())
-            if (t.tm_hour == 23 and t.tm_min == 5 and t.tm_sec == 11):
+            if (t.tm_hour == 15 and t.tm_min == 18 and t.tm_sec == 11):
                 conn = get_db()
                 cur = conn.execute("SELECT * FROM user")
                 for user in cur.fetchall():
@@ -52,10 +52,10 @@ def timer():
                     day = str(t.tm_mon) + "月" + str(t.tm_mday) + "日"
                     if rs == True:
                         sendemail.send_email(
-                            day + "签到成功提示", "您的帐号`" + u + "`在" + now + "签到成功", email)
+                            "「新绿药」" + day + "签到成功提示", "您的帐号`" + u + "`于" + now + "签到成功", email)
                     else:
                         sendemail.send_email(
-                            day + "自动签到失败提示", "您的帐号`" + u + "`签到失败，请登录APP客户端手动签到", email)
+                            "「新绿药」" + day + "!自动签到失败提示!", "您的帐号`" + u + "`签到失败，请登录APP客户端手动签到", email)
                     time.sleep(10)
 
 
